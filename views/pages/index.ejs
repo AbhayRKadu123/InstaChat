@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstaChat</title>
+    <link rel="stylesheet" href="Css/Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+   <div class="container">
+       <div class="chat-header">
+           <!-- <img src="logo.png" alt="Logo" class="logo"> -->
+           <i class="fa fa-address-book" style="font-size:24px"></i>
+           <h1>InstaChat</h1>
+       </div>
+       <div class="chat-window">
+           <!-- Example of Received Message -->
+           
+       </div>
+       <div class="chat-input">
+            <input name="UserName" id="UserName" placeholder="Enter Your UserName" type="text">
+            <span style="display: none; font-size: 10px; color: red;">Please Enter UserName</span>
+            <button id="UserNameBtn" class="Button">Save UserName</button>
+
+            <input name="Reciver" id="Reciver" placeholder="Enter Name of Receiver" type="text">
+            <input name="Message" id="Message" placeholder="Enter Your Message" type="text">
+            <button id="SendMessage" class="Button">Send Message</button>
+       </div>
+   </div>
+   <script src="/socket.io/socket.io.js"></script>
+   <script src="/Script/index.js"></script>
+</body>
+</html>

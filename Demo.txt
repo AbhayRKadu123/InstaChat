@@ -1,0 +1,41 @@
+const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const app = express();
+const httpServer = createServer(app);
+
+const io = new Server(httpServer);
+let path=require('path')
+io.on("connection", (socket) => {
+ 
+  
+  console.log('user connected with id '+socket.id)
+  socket.on('PrivateMessage',(msg)=>{
+    console.log(msg.msg)
+    console.log(msg.user)
+    socket.to(msg.user).emit('PrivateMessage',msg.msg)
+
+  })
+  socket.on('joinroom',(room)=>{
+    console.log(room)
+    socket.join(room)
+   io.to(room).emit('room_message',`welcome to ${room} ${socket.id}`)
+   
+  })
+  socket.on('Message',(msg)=>{
+    let {room,Message}=msg;
+    io.to(room).emit('RoomMate',msg)
+
+  })
+});
+
+httpServer.listen(8080,()=>{
+  console.log('app is listening')
+})
+
+app.get("/",(req,res)=>{
+res.sendFile(__dirname+"/index.html")
+
+})
+
