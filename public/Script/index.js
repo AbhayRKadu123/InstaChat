@@ -77,7 +77,3 @@ SendMsg.addEventListener('click',()=>{
 socket.emit("Reciver",{From:UserName.value,Name:Reciver.value,Msg:Message.value})
 NewMessage.value=""
 })
-
-
-
-

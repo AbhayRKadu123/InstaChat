@@ -8,6 +8,18 @@ let path=require('path')
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 let Users={};
+console.log(Users)
+
+function removeKeyByValue(obj, value) {
+    for (const key in obj) {
+      if (obj[key] === value) {
+        delete obj[key]; // Remove the key
+        return key; // Optionally return the key that was removed
+      }
+    }
+    return null; // Return null if no key is found with the given value
+  }
+  
 io.on("connection", (socket) => {
     console.log('user connected with id '+socket.id)
     socket.emit('resMsg','User connected with id :'+socket.id)
@@ -19,13 +31,18 @@ io.on("connection", (socket) => {
         }else{
             console.log('allready present')
         }
-        console.log(Users[msg])
+        console.log(Users)
     })
     socket.on("Reciver",(msg)=>{
         console.log('Recievermsg'+msg.Name)
         console.log('Recievermsg'+msg.Msg)
     socket.to(Users[msg.Name]).emit('privateMsg',{From:msg.From,Msg:msg.Msg})
 
+    })
+    socket.on('disconnect',()=>{
+        console.log('user disconnect with id '+socket.id)
+        removeKeyByValue(Users,socket.id)
+        console.log(Users)
     })
 });
 
